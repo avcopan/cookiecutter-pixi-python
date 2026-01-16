@@ -17,11 +17,7 @@ jobs:
         uses: prefix-dev/setup-pixi@v0.9.3
 
       - name: Run cookiecutter
-        run: |
-          mkdir build
-          pixi run cookiecutter . --no-input -o ..
+        run: pixi run build
 
       - name: Test package
-        run: |
-          cd ../project_name
-          pixi run echo Hi
+        run: pixi run test

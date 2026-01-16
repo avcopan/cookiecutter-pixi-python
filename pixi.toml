@@ -6,6 +6,10 @@ platforms = ["linux-64"]
 version = "0.1.0"
 
 [tasks]
+clean = "rm -r ../project_name"
+build = "cookiecutter . --no-input -o .."
+test = "cd ../project_name && pixi run echo Hi"
+all = { depends-on = ["clean", "build", "test"] }
 
 [dependencies]
 cookiecutter = ">=2.6.0,<3"
