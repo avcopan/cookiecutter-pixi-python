@@ -9,6 +9,7 @@ version = "0.1.0"
 build-backend = "hatchling.build"
 requires = ["hatchling"]
 
+# Pixi configurations
 [tool.pixi.workspace]
 channels = ["conda-forge"]
 platforms = ["linux-64"]
@@ -16,4 +17,42 @@ platforms = ["linux-64"]
 [tool.pixi.pypi-dependencies]
 {{cookiecutter.package_name}} = { path = ".", editable = true }
 
+[tool.pixi.dependencies]
+
 [tool.pixi.tasks]
+
+[tool.pixi.feature.dev.dependencies]
+ruff = "*"
+ty = "*"
+pytest = "*"
+
+[tool.pixi.environments]
+default = { solve-group = "default" }
+dev = { features = ["dev"], solve-group = "default"}
+
+[tool.pixi.feature.dev.tasks]
+fmt = "ruff format ."
+lint = "ruff check . --fix --exclude '**/*.ipynb'"
+types = "ty check"
+test = "pytest"
+hooks = { depends-on = ["fmt", "lint", "types", "test"] }
+
+# Ruff configurations
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "COM812",   # missing trailing comma (handled by format)
+    "RUF022",   # `__all__` is not sorted
+    "TID252",   # relative import
+    "D203",     # confict: incorrect blank line before class (uses D211 instead)
+    "D213",     # conflict: multi-line summary second line (uses D212 instead)
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+# Pytest configurations
+[tool.pytest.ini_options]
+testpaths = ["tests", "src"]
+addopts = "--doctest-modules"
+doctest_optionflags = "NORMALIZE_WHITESPACE"
