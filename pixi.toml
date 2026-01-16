@@ -1,0 +1,11 @@
+[workspace]
+authors = ["avcopan <avcopan@gmail.com>"]
+channels = ["conda-forge"]
+name = "cookiecutter-pixi-python"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+cookiecutter = ">=2.6.0,<3"

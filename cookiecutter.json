@@ -1,0 +1,6 @@
+{
+    "project_name": "project-name",
+    "package_name": "{{cookiecutter.project_name.lower().replace('-', '_')}}",
+    "author_name": "Your Name",
+    "author_email": "email@example.com"
+}
