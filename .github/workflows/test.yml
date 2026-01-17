@@ -21,3 +21,10 @@ jobs:
 
       - name: Test package
         run: pixi run test
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: ../project_name/coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
