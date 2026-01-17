@@ -25,6 +25,7 @@ platforms = ["linux-64"]
 ruff = "*"
 ty = "*"
 pytest = "*"
+pytest-cov = "*"
 
 [tool.pixi.environments]
 default = { solve-group = "default" }
@@ -54,5 +55,20 @@ convention = "numpy"
 # Pytest configurations
 [tool.pytest.ini_options]
 testpaths = ["tests", "src"]
-addopts = "--doctest-modules"
+addopts = [
+    "--doctest-modules",
+    "--cov={{cookiecutter.package_name}}",
+    "--cov-report=term-missing",
+    "--cov-report=xml",
+]
 doctest_optionflags = "NORMALIZE_WHITESPACE"
+
+# Pytest-cov configurations
+[tool.coverage.run]
+branch = true
+source = ["{{cookiecutter.package_name}}"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 80
