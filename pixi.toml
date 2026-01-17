@@ -11,7 +11,19 @@ build = "cookiecutter . --no-input -o .. && git init ../project_name"
 test = { cmd = "pixi run hooks", cwd = "../project_name" }
 init = { cmd = "pixi run init", cwd = "../project_name" }
 version = { cmd = "pixi run bumpver show", cwd = "../project_name" }
-all = { depends-on = ["clean", "build", "test", "init", "version"] }
+license = { cmd = "cat LICENSE", cwd = "../project_name" }
+readme = { cmd = "cat README.md", cwd = "../project_name" }
+
+[tasks.all]
+depends-on = [
+    "clean",
+    "build",
+    "test",
+    "init",
+    "version",
+    "readme",
+    "license",
+]
 
 [dependencies]
 cookiecutter = ">=2.6.0,<3"
