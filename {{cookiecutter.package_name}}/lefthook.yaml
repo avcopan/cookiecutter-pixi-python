@@ -1,0 +1,33 @@
+pre-commit:
+  parallel: true
+  exclude:
+    - .pixi/
+  commands:
+    ruff-format:
+      run: pixi run fmt
+
+    ruff-check:
+      run: pixi run lint
+
+    ty:
+      run: pixi run types
+
+    pytest:
+      run: pixi run test
+
+pre-push:
+  parallel: true
+  exclude:
+    - .pixi/
+  commands:
+    ruff-format:
+      run: pixi run fmt
+
+    ruff-check:
+      run: pixi run lint
+
+    ty:
+      run: pixi run types
+
+    pytest:
+      run: pixi run test

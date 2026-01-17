@@ -26,12 +26,14 @@ ruff = "*"
 ty = "*"
 pytest = "*"
 pytest-cov = "*"
+lefthook = "*"
 
 [tool.pixi.environments]
 default = { solve-group = "default" }
 dev = { features = ["dev"], solve-group = "default"}
 
 [tool.pixi.feature.dev.tasks]
+init = "./scripts/init.sh"
 fmt = "ruff format ."
 lint = "ruff check . --fix --exclude '**/*.ipynb'"
 types = "ty check"

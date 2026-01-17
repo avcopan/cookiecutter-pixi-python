@@ -6,10 +6,11 @@ platforms = ["linux-64"]
 version = "0.1.0"
 
 [tasks]
-clean = "rm -r ../project_name || true"
+clean = "rm -rf ../project_name"
 build = "cookiecutter . --no-input -o .. && git init ../project_name"
 test = { cmd = "pixi run hooks", cwd = "../project_name" }
-all = { depends-on = ["clean", "build", "test"] }
+init = { cmd = "pixi run init", cwd = "../project_name" }
+all = { depends-on = ["clean", "build", "test", "init"] }
 
 [dependencies]
 cookiecutter = ">=2.6.0,<3"
