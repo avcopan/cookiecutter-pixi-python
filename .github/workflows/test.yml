@@ -16,14 +16,8 @@ jobs:
       - name: Initialize Pixi
         uses: prefix-dev/setup-pixi@v0.9.3
 
-      - name: Run cookiecutter
-        run: pixi run build
-
-      - name: Test package
-        run: pixi run test
-
-      - name: Initialize project
-        run: pixi run init
+      - name: Run cookiecutter setup and test workflow
+        run: pixi run all
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5

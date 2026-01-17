@@ -3,7 +3,7 @@ authors = [{name = "{{cookiecutter.author_name}}", email = "{{cookiecutter.autho
 dependencies = []
 name = "{{cookiecutter.project_name}}"
 requires-python = ">= 3.11"
-version = "0.1.0"
+version = "0.0.0"
 
 [build-system]
 build-backend = "hatchling.build"
@@ -27,18 +27,20 @@ ty = "*"
 pytest = "*"
 pytest-cov = "*"
 lefthook = "*"
+bumpver = "*"
 
 [tool.pixi.environments]
 default = { solve-group = "default" }
 dev = { features = ["dev"], solve-group = "default"}
 
 [tool.pixi.feature.dev.tasks]
-init = "./scripts/init.sh"
 fmt = "ruff format ."
 lint = "ruff check . --fix --exclude '**/*.ipynb'"
 types = "ty check"
 test = "pytest"
 hooks = { depends-on = ["fmt", "lint", "types", "test"] }
+init = "./scripts/init.sh"
+bumpver = "bumpver"
 
 # Ruff configurations
 [tool.ruff.lint]
@@ -74,3 +76,24 @@ source = ["{{cookiecutter.package_name}}"]
 show_missing = true
 skip_covered = true
 fail_under = 80
+
+# Bumpver configurations
+[tool.bumpver]
+current_version = "0.0.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "Bump version {old_version} -> {new_version}"
+tag_message = "{new_version}"
+tag_scope = "default"
+pre_commit_hook = "scripts/lock.sh"
+post_commit_hook = ""
+commit = true
+tag = true
+push = true
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'version = "{version}"',
+]
+"src/{{cookiecutter.package_name}}/__init__.py" = [
+    '__version__ = "{version}"',
+]

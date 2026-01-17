@@ -10,7 +10,8 @@ clean = "rm -rf ../project_name"
 build = "cookiecutter . --no-input -o .. && git init ../project_name"
 test = { cmd = "pixi run hooks", cwd = "../project_name" }
 init = { cmd = "pixi run init", cwd = "../project_name" }
-all = { depends-on = ["clean", "build", "test", "init"] }
+version = { cmd = "pixi run bumpver show", cwd = "../project_name" }
+all = { depends-on = ["clean", "build", "test", "init", "version"] }
 
 [dependencies]
 cookiecutter = ">=2.6.0,<3"
