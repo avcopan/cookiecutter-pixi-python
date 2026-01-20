@@ -34,6 +34,7 @@ bumpver = "*"
 sphinx = "*"
 myst-parser = "*"
 pydata-sphinx-theme = "*"
+sphinx-autodoc2 = "*"
 
 [tool.pixi.environments]
 default = { solve-group = "default" }

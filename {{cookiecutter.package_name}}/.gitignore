@@ -70,6 +70,8 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+#   autodoc2:
+docs/source/apidocs/
 
 # PyBuilder
 .pybuilder/
