@@ -30,9 +30,14 @@ pytest-cov = "*"
 lefthook = "*"
 bumpver = "*"
 
+[tool.pixi.feature.docs.dependencies]
+sphinx = "*"
+myst-parser = "*"
+pydata-sphinx-theme = "*"
+
 [tool.pixi.environments]
 default = { solve-group = "default" }
-dev = { features = ["dev"], solve-group = "default"}
+dev = { features = ["dev", "docs"], solve-group = "default"}
 
 [tool.pixi.feature.dev.tasks]
 fmt = "ruff format ."
@@ -40,13 +45,15 @@ lint = "ruff check . --fix"
 types = "ty check"
 imports = "lint-imports"
 test = "pytest"
-hooks = { depends-on = ["fmt", "lint", "types", "imports", "test"] }
+docs = "sphinx-build docs/source docs/build"
+hooks = { depends-on = ["fmt", "lint", "types", "imports", "test", "docs"] }
 init = "./scripts/init.sh"
 bumpver = "bumpver"
 
 # Ruff configurations
 [tool.ruff]
 exclude = [
+    "docs",
     "**/*.ipynb",
 ]
 
