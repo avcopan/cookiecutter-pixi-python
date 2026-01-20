@@ -1,5 +1,5 @@
 pre-commit:
-  parallel: true
+  parallel: false
   exclude:
     - .pixi/
   commands:
@@ -16,7 +16,7 @@ pre-commit:
       run: pixi run test
 
 pre-push:
-  parallel: true
+  parallel: false
   exclude:
     - .pixi/
   commands:
