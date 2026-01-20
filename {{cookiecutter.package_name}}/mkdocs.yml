@@ -1,0 +1,19 @@
+site_name: {{ cookiecutter.project_name }}
+site_url: https://{{ cookiecutter.github_org_name }}.github.io/{{ cookiecutter.package_name }}
+repo_url: https://github.com/{{ cookiecutter.github_org_name }}/{{ cookiecutter.package_name }}
+theme:
+  name: material
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Quickstart: quickstart.md
+
+  - Tutorials:
+      - Tutorial 1: tutorials/tutorial1.md
+      - Tutorial 2: tutorials/tutorial2.md
+
+  - Reference:
+      - API: reference/api.md
+
+  - About:
+      - Citation: about/citation.md

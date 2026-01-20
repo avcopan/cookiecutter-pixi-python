@@ -29,6 +29,7 @@ pytest = "*"
 pytest-cov = "*"
 lefthook = "*"
 bumpver = "*"
+mkdocs-material = "*"
 
 [tool.pixi.environments]
 default = { solve-group = "default" }
@@ -40,7 +41,8 @@ lint = "ruff check . --fix"
 types = "ty check"
 imports = "lint-imports"
 test = "pytest"
-hooks = { depends-on = ["fmt", "lint", "types", "imports", "test"] }
+docs = "mkdocs build"
+hooks = { depends-on = ["fmt", "lint", "types", "imports", "test", "docs"] }
 init = "./scripts/init.sh"
 bumpver = "bumpver"
 
