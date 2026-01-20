@@ -41,10 +41,11 @@ lint = "ruff check . --fix"
 types = "ty check"
 imports = "lint-imports"
 test = "pytest"
-docs = "mkdocs build"
-hooks = { depends-on = ["fmt", "lint", "types", "imports", "test", "docs"] }
+docs-build = "mkdocs build"
+hooks = { depends-on = ["fmt", "lint", "types", "imports", "test", "docs-build"] }
 init = "./scripts/init.sh"
 bumpver = "bumpver"
+docs-deploy = "mkdocs gh-deploy --force"
 
 # Ruff configurations
 [tool.ruff]
