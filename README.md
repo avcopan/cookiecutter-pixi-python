@@ -52,12 +52,8 @@ Next, enter the project directory and run the pixi `init` task to initialize the
 cd <package-name>
 pixi run init
 ```
-Finally, create an empty repository on GitHub and add it as the remote for this one.
-```sh
-# 1. On GitHub: Create an empty repository called <package-name>
-# 2. Copy the SSH address for your new repository
-git remote add origin <ssh address>
-```
+Meanwhile, on GitHub, create an empty repository with the same name.
+You will be prompted to enter your GitHub username, to add it as a remote.
 
 
 ### Usage

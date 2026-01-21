@@ -2,26 +2,11 @@
 
 set -e
 
-# direnv check
-if command -v direnv >/dev/null 2>&1; then
-  direnv allow
-else
-  echo "Warning: direnv is not installed."
-  echo "You can install direnv and then run: direnv allow"
-fi
+# Set up remote repository
+read -p "Set up a remove repository for {{cookiecutter.package_name}} GitHub, then press enter to continue."
 
-git init
-git add --all
-# git identity check
-if git config --get user.name >/dev/null 2>&1 && git config --get user.email >/dev/null 2>&1; then
-  git commit -m "Initial commit"
-else
-  echo "Warning: Git author identity is not configured."
-  echo "You can configure it as follows:"
-  echo '  git config --global user.name "Your Name"'
-  echo '  git config --global user.email "you@example.com"'
-  echo "Afterwards, you can make the initial commit with:"
-  echo '  git commit -m "Initial commit"'
-fi
-
-lefthook install
+DEFAULT_USERNAME=$(git config --global user.name)
+read -p "  Git username (${DEFAULT_USERNAME} [default] or enter alternative): " INPUT
+USERNAME=${INPUT:-$DEFAULT_USERNAME}
+git remote add origin git@github.com:$USERNAME/{{cookiecutter.package_name}}.git
+git push -u origin main

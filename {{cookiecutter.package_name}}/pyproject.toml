@@ -48,7 +48,8 @@ imports = "lint-imports"
 test = "pytest"
 docs = "sphinx-build docs/source docs/build"
 hooks = { depends-on = ["fmt", "lint", "types", "imports", "test", "docs"] }
-init = "./scripts/init.sh"
+setup = "./scripts/setup.sh"
+init = { cmd = "./scripts/init.sh", depends-on = ["setup"]}
 bumpver = "bumpver"
 release = "bumpver update"
 

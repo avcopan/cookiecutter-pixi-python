@@ -8,8 +8,8 @@ version = "0.1.0"
 [tasks]
 clean = "rm -rf ../project_name"
 build = "cookiecutter . --no-input -o .."
-init = { cmd = "pixi run init", cwd = "../project_name" }
-test = { cmd = "pixi run hooks", cwd = "../project_name" }
+setup = { cmd = "pixi run setup", cwd = "../project_name" }
+hooks = { cmd = "pixi run hooks", cwd = "../project_name" }
 readme = { cmd = "cat README.md", cwd = "../project_name" }
 license = { cmd = "cat LICENSE", cwd = "../project_name" }
 version = { cmd = "pixi run bumpver show", cwd = "../project_name" }
@@ -18,8 +18,8 @@ version = { cmd = "pixi run bumpver show", cwd = "../project_name" }
 depends-on = [
     "clean",
     "build",
-    "init",
-    "test",
+    "setup",
+    "hooks",
     "readme",
     "license",
     "version",
