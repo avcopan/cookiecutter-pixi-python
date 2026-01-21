@@ -48,7 +48,7 @@ cookiecutter gh:avcopan/cookiecutter-pixi-python
 Follow the prompts to setup your project.
 
 Then follow these steps to finalize your setup.
-1. On [GitHub](https://github.com/), click `New` or `+ > New repository` to create a new remote repository. Enter the same package name as above and click "Create repository", leaving everything else blank.
+1. On [GitHub](https://github.com/), click `New` or `+ > New repository` and create a new repository with the same package name used above, leaving everything else blank.
 2. On the GitHub site for your remote repository, navigate to `Settings > Pages` and set the `Source` for your GitHub Pages deployment to "GitHub Actions".
 3. On [CodeCov.io](https://about.codecov.io/), log in or set up an account, navigate to `Settings > Global Upload Token`, and select "Not required".
 4. In your terminal, navigate into the local repository created by cookiecutter and run `pixi run init`.
