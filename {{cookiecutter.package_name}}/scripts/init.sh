@@ -3,7 +3,7 @@
 set -e
 
 # Set up remote repository
-read -p "Set up a remove repository for {{cookiecutter.package_name}} GitHub, then press enter to continue."
+read -p "Set up a remote repository for {{cookiecutter.package_name}} on GitHub, then press enter to continue."
 
 DEFAULT_USERNAME=$(git config --global user.name)
 read -p "  Git username (${DEFAULT_USERNAME} [default] or enter alternative): " INPUT
