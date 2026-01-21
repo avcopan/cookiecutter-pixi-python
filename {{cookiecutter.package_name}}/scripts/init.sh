@@ -10,9 +10,8 @@ else
   echo "You can install direnv and then run: direnv allow"
 fi
 
-lefthook install
+git init
 git add --all
-
 # git identity check
 if git config --get user.name >/dev/null 2>&1 && git config --get user.email >/dev/null 2>&1; then
   git commit -m "Initial commit"
@@ -24,3 +23,5 @@ else
   echo "Afterwards, you can make the initial commit with:"
   echo '  git commit -m "Initial commit"'
 fi
+
+lefthook install
