@@ -3,31 +3,17 @@ pre-commit:
   exclude:
     - .pixi/
   commands:
-    ruff-format:
+    fmt:
       run: pixi run fmt
 
-    ruff-check:
+    lint:
       run: pixi run lint
 
-    ty:
+    types:
       run: pixi run types
 
-    pytest:
-      run: pixi run test
+    imports:
+      run: pixi run imports
 
-pre-push:
-  parallel: false
-  exclude:
-    - .pixi/
-  commands:
-    ruff-format:
-      run: pixi run fmt
-
-    ruff-check:
-      run: pixi run lint
-
-    ty:
-      run: pixi run types
-
-    pytest:
+    test:
       run: pixi run test

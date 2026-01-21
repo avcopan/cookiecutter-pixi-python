@@ -41,17 +41,22 @@ default = { solve-group = "default" }
 dev = { features = ["dev", "docs"], solve-group = "default"}
 
 [tool.pixi.feature.dev.tasks]
+# Individual tasks for pre-commit hooks (must be added to lefthook.yaml)
 fmt = "ruff format ."
 lint = "ruff check . --fix"
 types = "ty check"
 imports = "lint-imports"
 test = "pytest"
+# Pre-commit hooks task (see lefthook.yaml)
+precommit = "lefthook run pre-commit --all-files --fail-on-changes"
+# Documentation build task
 docs = "sphinx-build docs/source docs/build"
-hooks = { depends-on = ["fmt", "lint", "types", "imports", "test", "docs"] }
-setup = "./scripts/setup.sh"
-init = { cmd = "./scripts/init.sh", depends-on = ["setup"]}
+# Release tasks
 bumpver = "bumpver"
 release = "bumpver update"
+# Setup and initialization (only run once)
+setup = "./scripts/setup.sh"
+init = { cmd = "./scripts/init.sh", depends-on = ["setup"]}
 
 # Ruff configurations
 [tool.ruff]
