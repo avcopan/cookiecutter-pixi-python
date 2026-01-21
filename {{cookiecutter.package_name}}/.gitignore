@@ -219,3 +219,6 @@ __marimo__/
 # pixi environments
 .pixi/*
 !.pixi/config.toml
+
+# notebook folder
+notebooks/
