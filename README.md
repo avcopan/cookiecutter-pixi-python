@@ -18,12 +18,19 @@ For those interested in something similar, I would recommend the cookiecutter fr
 - Testing with [pytest](https://docs.pytest.org/en/latest/)
 - Code coverage with [codecov](https://docs.codecov.com/docs)
 - Git hooks with [lefthook](https://lefthook.dev/)
+- Versioning with [BumpVer](https://github.com/mbarkhau/bumpver)
 - Markdown-based documentation with [Sphinx](https://www.sphinx-doc.org/en/master/) and [MyST Markdown](https://mystmd.org/)
+- Documentation hosting on [GitHub Pages](https://docs.github.com/en/pages)
 - Auto-generatd API documentation with [Sphinx-Autodoc2](https://sphinx-autodoc2.readthedocs.io/en/latest/)
-- Continuous integration with [GitHub Actions](https://github.com/features/actions)
+- Continuous integration with [GitHub Actions](https://github.com/features/actions), including:
+    - Linting, formatting, testing, etc.
+    - Deploying documentation site
+    - Creating releases
 
 
-## Installation
+## Instructions
+
+### Dependencies
 
 First, install pixi using the command shown [here](https://pixi.prefix.dev/latest/installation/).
 Then install cookiecutter as follows.
@@ -32,8 +39,7 @@ pixi global install cookiecutter
 ```
 Optionally, you can install `direnv` to automatically load your environment for you.
 
-
-## Usage
+### Setup
 
 Use the following command to create a new project from this cookiecutter.
 ```sh
@@ -52,6 +58,11 @@ Finally, create an empty repository on GitHub and add it as the remote for this 
 # 2. Copy the SSH address for your new repository
 git remote add origin <ssh address>
 ```
+
+
+### Usage
+
+Usage instructions...
 
 ## License
 
