@@ -4,5 +4,6 @@
     "author_name": "Your Name",
     "author_email": "email@example.com",
     "github_org_name": "github-org-name",
+    "anaconda_org_name": "anaconda-org-name",
     "_copy_without_render": [".github/workflows"]
 }

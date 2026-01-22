@@ -1,62 +1,13 @@
 [project]
-authors = [{name = "{{cookiecutter.author_name}}", email = "{{cookiecutter.author_email}}"}]
-dependencies = []
 name = "{{cookiecutter.project_name}}"
-requires-python = ">= 3.11"
 version = "0.0.0"
+authors = [{name = "{{cookiecutter.author_name}}", email = "{{cookiecutter.author_email}}"}]
+requires-python = ">= 3.11"
+dependencies = []
 
 [build-system]
 build-backend = "hatchling.build"
 requires = ["hatchling"]
-
-# Pixi configurations
-[tool.pixi.workspace]
-channels = ["conda-forge"]
-platforms = ["linux-64"]
-
-[tool.pixi.pypi-dependencies]
-{{cookiecutter.package_name}} = { path = ".", editable = true }
-
-[tool.pixi.dependencies]
-
-[tool.pixi.tasks]
-
-[tool.pixi.feature.dev.dependencies]
-ruff = "*"
-ty = "*"
-import-linter = "*"
-pytest = "*"
-pytest-cov = "*"
-lefthook = "*"
-bumpver = "*"
-
-[tool.pixi.feature.docs.dependencies]
-sphinx = "*"
-myst-parser = "*"
-pydata-sphinx-theme = "*"
-sphinx-autodoc2 = "*"
-
-[tool.pixi.environments]
-default = { solve-group = "default" }
-dev = { features = ["dev", "docs"], solve-group = "default"}
-
-[tool.pixi.feature.dev.tasks]
-# Individual tasks for pre-commit hooks (must be added to lefthook.yaml)
-fmt = "ruff format ."
-lint = "ruff check . --fix"
-types = "ty check"
-imports = "lint-imports"
-test = "pytest"
-# Pre-commit hooks task (see lefthook.yaml)
-precommit = "lefthook run pre-commit --all-files --fail-on-changes"
-# Documentation build task
-docs = "sphinx-build docs/source docs/build"
-# Release tasks
-bumpver = "bumpver"
-release = "bumpver update"
-# Setup and initialization (only run once)
-setup = "./scripts/setup.sh"
-init = { cmd = "./scripts/init.sh", depends-on = ["setup"]}
 
 # Ruff configurations
 [tool.ruff]
@@ -136,6 +87,9 @@ push = true
 
 [tool.bumpver.file_patterns]
 "pyproject.toml" = [
+    'version = "{version}"',
+]
+"pixi.toml" = [
     'version = "{version}"',
 ]
 "src/{{cookiecutter.package_name}}/__init__.py" = [

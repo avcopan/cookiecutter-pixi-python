@@ -18,7 +18,7 @@ jobs:
           environments: dev
 
       - name: Run pre-commit hooks
-        run: pixi run precommit
+        run: pixi run pre-commit
 
       - name: Run tests with coverage report
         run: pixi run test --cov --cov-report=xml

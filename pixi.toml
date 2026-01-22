@@ -9,7 +9,7 @@ version = "0.1.0"
 clean = "rm -rf ../project_name"
 build = "cookiecutter . --no-input -o .."
 setup = { cmd = "pixi run setup", cwd = "../project_name" }
-precommit = { cmd = "pixi run precommit", cwd = "../project_name" }
+pre-commit = { cmd = "pixi run pre-commit", cwd = "../project_name" }
 docs = { cmd = "pixi run docs", cwd = "../project_name" }
 readme = { cmd = "cat README.md", cwd = "../project_name" }
 license = { cmd = "cat LICENSE", cwd = "../project_name" }
@@ -20,7 +20,7 @@ depends-on = [
     "clean",
     "build",
     "setup",
-    "precommit",
+    "pre-commit",
     "docs",
     "readme",
     "license",

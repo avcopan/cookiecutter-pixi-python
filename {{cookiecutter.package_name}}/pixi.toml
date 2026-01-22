@@ -1,0 +1,59 @@
+[workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+preview = ["pixi-build"]
+
+[dependencies]
+{{cookiecutter.project_name}} = { path = "." }
+
+[package]
+name = "{{cookiecutter.project_name}}"
+version = "0.0.0"
+
+[package.build]
+backend = { name = "pixi-build-python", version = "*" }
+
+[package.build.config]
+ignore-pyproject-manifest = false
+ignore-pypi-mapping = false
+
+[feature.dev.dependencies]
+ruff = "*"
+ty = "*"
+import-linter = "*"
+pytest = "*"
+pytest-cov = "*"
+lefthook = "*"
+rattler-build = "*"
+bumpver = "*"
+
+[feature.docs.dependencies]
+sphinx = "*"
+myst-parser = "*"
+pydata-sphinx-theme = "*"
+sphinx-autodoc2 = "*"
+
+[environments]
+default = { solve-group = "default" }
+dev = { features = ["dev", "docs"], solve-group = "default"}
+
+[feature.dev.tasks]
+# Individual tasks for pre-commit hooks (must be added to lefthook.yaml)
+fmt = "ruff format ."
+lint = "ruff check . --fix"
+types = "ty check"
+imports = "lint-imports"
+test = "pytest"
+# Run pre-commit hooks (see lefthook.yaml)
+pre-commit = "lefthook run pre-commit --all-files --fail-on-changes"
+# Build documentation
+docs = "sphinx-build docs/source docs/build"
+# Build and publish conda package
+build-conda = "pixi build -o dist"
+publish-conda = "rattler-build upload anaconda dist/*.conda -o {{cookiecutter.anaconda_org_name}}"
+# Initiate release
+bumpver = "bumpver"
+release = "bumpver update"
+# Setup and initialize this repository (only run once)
+setup = "./scripts/setup.sh"
+init = { cmd = "./scripts/init.sh", depends-on = ["setup"]}
