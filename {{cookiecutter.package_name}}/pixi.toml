@@ -41,6 +41,8 @@ dev = { features = ["dev", "docs"], solve-group = "default"}
 [feature.dev.tasks]
 # Manage pyproject.toml with uv
 uv = "uv"
+add = "uv add"
+remove = "uv remove"
 # Individual tasks for pre-commit hooks (must be added to lefthook.yaml)
 fmt = "ruff format ."
 lint = "ruff check . --fix"
