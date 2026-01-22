@@ -23,7 +23,7 @@ jobs:
           environments: dev
 
       - name: Build documentation site
-        run: pixi run docs
+        run: pixi run docs-build
 
       - name: Upload documentation site as artifact
         id: deployment

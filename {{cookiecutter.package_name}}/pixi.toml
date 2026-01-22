@@ -51,8 +51,9 @@ imports = "lint-imports"
 test = "pytest"
 # Run pre-commit hooks (see lefthook.yaml)
 pre-commit = "lefthook run pre-commit --all-files --fail-on-changes"
-# Build documentation
-docs = "sphinx-build docs/source docs/build"
+# Build and view documentation
+docs-build = "sphinx-build docs/source docs/build"
+docs-view = { cmd = "scripts/view-docs.sh", depends-on = ["docs-build"] }
 # Build and publish conda package
 build-conda = "pixi build -o dist"
 publish-conda = "rattler-build upload anaconda dist/*.conda -o {{cookiecutter.anaconda_org_name}}"
