@@ -81,6 +81,13 @@ ignore = [
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
 
+# Ty configurations
+[tool.ty.src]
+include = [
+    "src",
+    "tests",
+]
+
 # Import-linter configurations
 [tool.importlinter]
 root_package = "{{cookiecutter.package_name}}"
