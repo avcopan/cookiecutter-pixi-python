@@ -18,6 +18,7 @@ ignore-pyproject-manifest = false
 ignore-pypi-mapping = false
 
 [feature.dev.dependencies]
+uv = "*"
 ruff = "*"
 ty = "*"
 import-linter = "*"
@@ -38,6 +39,8 @@ default = { solve-group = "default" }
 dev = { features = ["dev", "docs"], solve-group = "default"}
 
 [feature.dev.tasks]
+# Manage pyproject.toml with uv
+uv = "uv"
 # Individual tasks for pre-commit hooks (must be added to lefthook.yaml)
 fmt = "ruff format ."
 lint = "ruff check . --fix"
@@ -51,6 +54,10 @@ docs = "sphinx-build docs/source docs/build"
 # Build and publish conda package
 build-conda = "pixi build -o dist"
 publish-conda = "rattler-build upload anaconda dist/*.conda -o {{cookiecutter.anaconda_org_name}}"
+# Build and publish PyPI package
+build-pypi = "uv build"
+publish-pypi = "uv publish"
+publish-test-pypi = "uv publish --publish-url https://test.pypi.org/legacy/"
 # Initiate release
 bumpver = "bumpver"
 release = "bumpver update"
