@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 # Set up remote repository
 read -p "Press enter to continue if you have already set up a remote repository for {{cookiecutter.package_name}} on GitHub. Otherwise, please set it up before continuing."
 

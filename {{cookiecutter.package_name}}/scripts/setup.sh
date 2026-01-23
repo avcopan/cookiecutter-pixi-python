@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 # Set up direnv, if present
 if command -v direnv >/dev/null 2>&1; then
   direnv allow
