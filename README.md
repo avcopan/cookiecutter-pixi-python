@@ -104,10 +104,22 @@ pixi run remove <dependencies...>
 ```
 Under the hood, these tasks use UV to
 [manage dependencies](https://docs.astral.sh/uv/guides/projects/#managing-dependencies)
-in the `pyproject.toml` file.
+in the
+[`pyproject.toml` file]({{cookiecutter.package_name}}/pyproject.toml).
 These dependencies are then
 [mapped into Conda packages](https://pixi.prefix.dev/latest/build/backends/pixi-build-python/#automatic-pypi-dependency-mapping)
 by Pixi.
+
+**Add/remove dev dependencies.**
+Development dependencies can be added or removed from the Pixi `dev` environment as follows.
+```sh
+pixi add -f dev <development dependencies...>
+pixi remove -f dev <development dependencies...>
+```
+You can also add tasks to the development environment as described
+[here](https://pixi.prefix.dev/latest/workspace/advanced_tasks/).
+These configurations go in the
+[`pixi.toml` file]({{cookiecutter.package_name}}/pixi.toml).
 
 **Run pre-commit hooks.**
 If you have initialized with `pixi run init`, the pre-commit hooks should run with every commit.
