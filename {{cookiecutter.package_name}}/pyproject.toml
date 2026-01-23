@@ -2,7 +2,7 @@
 name = "{{cookiecutter.project_name}}"
 version = "0.0.0"
 authors = [{name = "{{cookiecutter.author_name}}", email = "{{cookiecutter.author_email}}"}]
-requires-python = ">= 3.11"
+requires-python = ">= 3.12"
 dependencies = []
 
 [build-system]
