@@ -13,7 +13,7 @@ pre-commit = { cmd = "pixi run pre-commit", cwd = "../project_name" }
 docs-build = { cmd = "pixi run docs-build", cwd = "../project_name" }
 readme = { cmd = "cat README.md", cwd = "../project_name" }
 license = { cmd = "cat LICENSE", cwd = "../project_name" }
-version = { cmd = "pixi run bumpver show", cwd = "../project_name" }
+version = { cmd = "pixi run version", cwd = "../project_name" }
 
 [tasks.all]
 depends-on = [

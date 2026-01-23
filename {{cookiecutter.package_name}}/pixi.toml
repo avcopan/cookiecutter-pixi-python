@@ -26,7 +26,7 @@ pytest = "*"
 pytest-cov = "*"
 lefthook = "*"
 rattler-build = "*"
-bumpver = "*"
+tbump = "*"
 
 [feature.docs.dependencies]
 sphinx = "*"
@@ -62,8 +62,8 @@ build-pypi = "uv build"
 publish-pypi = "uv publish"
 publish-test-pypi = "uv publish --publish-url https://test.pypi.org/legacy/"
 # Initiate release
-bumpver = "bumpver"
-release = "bumpver update"
+version = "tbump current-version"
+release = "tbump"
 # Setup and initialize this repository (only run once)
 setup = "./scripts/setup.sh"
 init = { cmd = "./scripts/init.sh", depends-on = ["setup"]}

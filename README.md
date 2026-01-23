@@ -19,7 +19,7 @@ For those interested in something similar, I would recommend the cookiecutter fr
 - Testing with [PyTest](https://docs.pytest.org/en/latest/)
 - Code coverage with [CodeCov](https://docs.codecov.com/docs)
 - Git hooks with [LeftHook](https://lefthook.dev/)
-- Versioning with [BumpVer](https://github.com/mbarkhau/bumpver)
+- Versioning and release triggering with [tbump](https://github.com/your-tools/tbump)
 - Markdown-based documentation with [Sphinx](https://www.sphinx-doc.org/en/master/) and [MyST Markdown](https://mystmd.org/)
 - Documentation hosting on [GitHub Pages](https://docs.github.com/en/pages)
 - Auto-generatd API documentation with [Sphinx-Autodoc2](https://sphinx-autodoc2.readthedocs.io/en/latest/)
@@ -145,18 +145,22 @@ using the
 parser.
 
 **Release a new version.**
-The following command is used to release a new version of the code.
+The following command shows the current version number.
 ```sh
-pixi run release --patch  # or --minor or --major
+pixi run version
 ```
-Under the hood, this uses BumpVer to change version numbers, commit the change,
-and push it to GitHub along with a version tag.
-Here, `--major`, `--minor`, and `--patch` increment the respective
-`MAJOR.MINOR.PATCH` components of a [SemVer](https://semver.org/) version
-number.
-When the new version tag is pushed by the above command, this triggers the
-[release workflow]({{cookiecutter.package_name}}/.github/workflows/release.yml),
-which builds and publishes Conda and PyPI packages and creates a GitHub release.
+Once you decide the appropriate next version number according to
+[SemVer](https://semver.org/)
+semantics, you can trigger a release by running this command.
+```sh
+pixi run release <new version number>
+```
+This creates a release commit tagged with the new version number and pushes both
+the commit and the tag to GitHub.
+When the tag is pushed, it triggers the
+[release workflow]({{cookiecutter.package_name}}/.github/workflows/release.yml)
+on GitHub Actions, which builds and publishes Conda and PyPI packages for your
+project and posts the new release on GitHub.
 
 **Publish to PyPI.**
 The
