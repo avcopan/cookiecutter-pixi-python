@@ -27,6 +27,7 @@ pytest-cov = "*"
 lefthook = "*"
 rattler-build = "*"
 tbump = "*"
+ipykernel = "*"
 
 [feature.docs.dependencies]
 sphinx = "*"
