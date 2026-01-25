@@ -33,6 +33,9 @@ ignore = [
 convention = "numpy"
 
 # Ty configurations
+[tool.ty.environment]
+python = ".pixi/envs/dev/bin/python"
+
 [tool.ty.src]
 include = [
     "src",
