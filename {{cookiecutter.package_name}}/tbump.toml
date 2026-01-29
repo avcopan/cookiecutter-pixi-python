@@ -27,6 +27,14 @@ src = "src/{{cookiecutter.package_name}}/__init__.py"
 search = '__version__ = "{current_version}"'
 
 [[before_commit]]
+name = "Update changelog"
+cmd = "pixi run changelog {new_version}"
+
+[[before_commit]]
+name = "Add changelog to commit"
+cmd = "git add CHANGELOG.md"
+
+[[before_commit]]
 name = "Update lockfile"
 cmd = "pixi lock"
 

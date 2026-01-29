@@ -29,6 +29,9 @@ rattler-build = "*"
 tbump = "*"
 ipykernel = "*"
 
+[feature.dev.pypi-dependencies]
+keepachangelog = "*"
+
 [feature.docs.dependencies]
 sphinx = "*"
 myst-parser = "*"
@@ -64,6 +67,9 @@ publish-pypi = "uv publish"
 publish-test-pypi = "uv publish --publish-url https://test.pypi.org/legacy/"
 # Initiate release
 version = "tbump current-version"
+{% raw %}
+changelog = { cmd = "keepachangelog release {{ version }}", args=["version"] }
+{% endraw %}
 release = "tbump"
 # Setup and initialize this repository (only run once)
 setup = "./scripts/setup.sh"
