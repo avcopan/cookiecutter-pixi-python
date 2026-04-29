@@ -220,8 +220,5 @@ __marimo__/
 .pixi/*
 !.pixi/config.toml
 
-# notebook folder
-notebooks/
-
 # pixi build
 *.conda
