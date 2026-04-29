@@ -13,6 +13,19 @@ fail() {
     exit 1
 }
 
+apply_and_reinstall_if_changed() {
+    local tmp_file="$1"
+
+    if ! cmp -s "$TOML_FILE" "$tmp_file"; then
+        mv "$tmp_file" "$TOML_FILE"
+        echo "Updated $TOML_FILE → running pixi reinstall"
+        pixi reinstall -e dev
+    else
+        rm "$tmp_file"
+        echo "No changes to $TOML_FILE"
+    fi
+}
+
 remove_local_deps() {
     awk -v start="$START_MARKER" -v end="$END_MARKER" -v place="$PLACE_MARKER" '
     {
@@ -29,12 +42,13 @@ remove_local_deps() {
     }
     ' "$TOML_FILE" > "$TOML_FILE.tmp"
 
-    mv "$TOML_FILE.tmp" "$TOML_FILE"
+    apply_and_reinstall_if_changed "$TOML_FILE.tmp"
 }
 
 add_local_deps() {
     [[ -f "$LOCAL_FILE" ]] || fail "$LOCAL_FILE not found"
 
+    # First normalize file (removes any existing block)
     remove_local_deps
 
     awk -v start="$START_MARKER" -v end="$END_MARKER" -v place="$PLACE_MARKER" -v insert_file="$LOCAL_FILE" '
@@ -52,7 +66,7 @@ add_local_deps() {
     }
     ' "$TOML_FILE" > "$TOML_FILE.tmp"
 
-    mv "$TOML_FILE.tmp" "$TOML_FILE"
+    apply_and_reinstall_if_changed "$TOML_FILE.tmp"
 }
 
 case "${1:-}" in
