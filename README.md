@@ -118,11 +118,35 @@ You can also add tasks to the development environment as described
 These configurations go in the
 [`pixi.toml` file]({{cookiecutter.package_name}}/pixi.toml).
 
+**Add/remove local dependencies.**
+To test against live changes to one or more of your other packages that this
+package depends on, you can add local repositories to `.local.txt` file as
+follows.
+```toml
+package-name = { path = "/path/to/repository", editable = true }
+```
+If you are already including their published versions as default dependencies,
+you can then toggle the use of the local versions in the `dev` environment as follows.
+```sh
+pixi run local start    # use local dependencies
+pixi run local stop     # use published dependencies
+```
+Once you are satisfied with the changes, you must update the published version
+of the dependency and bump the version in `pixi.toml` in order for the
+pre-commit hooks to pass.
+
+> [!NOTE]
+> You must `pixi run local stop` before committing and pushing changes.
+> Otherwise, your GitHub Actions workflows will fail because the local paths do
+> not exist.
+> This is enforced by the pre-commit hook below.
+
 **Run pre-commit hooks.**
 If you have initialized with `pixi run init`, the pre-commit hooks should run with every commit.
 You can also run them directly as follows.
 ```sh
-pixi run pre-commit
+pixi run pre-commit         # run pre-commit hooks
+pixi run local-pre-commit   # run pre-commit hooks with local dependencies
 ```
 These pre-commit hooks are [configured and run](https://lefthook.dev/configuration/run.html) using LeftHook.
 

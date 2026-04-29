@@ -31,6 +31,10 @@ ipykernel = "*"
 
 [feature.dev.pypi-dependencies]
 keepachangelog = "*"
+# local dependencies placeholder
+
+[feature.dev.pypi-options.dependency-overrides]
+# local dependencies placeholder
 
 [feature.docs.dependencies]
 sphinx = "*"
@@ -47,6 +51,8 @@ dev = { features = ["dev", "docs"], solve-group = "default"}
 uv = "uv"
 add = "uv add"
 remove = "uv remove"
+# Local dependency management (see scripts/local.sh)
+local = "./scripts/local.sh"
 # Individual tasks for pre-commit hooks (must be added to lefthook.yaml)
 fmt = "ruff format ."
 lint = "ruff check . --fix"
@@ -54,7 +60,8 @@ types = "ty check"
 imports = "lint-imports"
 test = "pytest"
 # Run pre-commit hooks (see lefthook.yaml)
-pre-commit = "lefthook run pre-commit --all-files --fail-on-changes"
+pre-commit = "lefthook run pre-commit --all-files"
+local-pre-commit = "lefthook run local-pre-commit --all-files"
 # View coverage report
 cov-view = "\"$BROWSER\" htmlcov/index.html"
 # Build and view documentation

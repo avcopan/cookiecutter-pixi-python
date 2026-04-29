@@ -3,6 +3,35 @@ pre-commit:
   exclude:
     - .pixi/
   commands:
+    local-stop:
+      run: pixi run local stop
+
+    fmt:
+      run: pixi run fmt
+
+    lint:
+      run: pixi run lint
+
+    types:
+      run: pixi run types
+
+    imports:
+      run: pixi run imports
+
+    test:
+      run: pixi run test
+
+    check-clean:
+      run: git diff --exit-code
+
+local-pre-commit:
+  parallel: false
+  exclude:
+    - .pixi/
+  commands:
+    local-start:
+      run: pixi run local start
+
     fmt:
       run: pixi run fmt
 
