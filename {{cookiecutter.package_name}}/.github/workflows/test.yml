@@ -21,9 +21,5 @@ jobs:
         run: pixi run pre-commit
 
       - name: Run tests with coverage report
-        run: pixi run test --cov --cov-report=xml
+        run: pixi run test
 
-      - name: Upload Coverage to Codecov
-        uses: codecov/codecov-action@v4
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

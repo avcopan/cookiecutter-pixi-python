@@ -17,7 +17,7 @@ For those interested in something similar, I would recommend the cookiecutter fr
 - Import linting with [Lint-Imports](https://import-linter.readthedocs.io/en/stable/)
 - Static typing with [Ty](https://github.com/astral-sh/ty)
 - Testing with [PyTest](https://docs.pytest.org/en/latest/)
-- Code coverage with [CodeCov](https://docs.codecov.com/docs)
+- Code coverage with [PyTest-Cov](https://pytest-cov.readthedocs.io/en/latest/)
 - Git hooks with [LeftHook](https://lefthook.dev/)
 - Versioning and release triggering with [tbump](https://github.com/your-tools/tbump)
 - Markdown-based documentation with [Sphinx](https://www.sphinx-doc.org/en/master/) and [MyST Markdown](https://mystmd.org/)
@@ -59,9 +59,6 @@ Then complete the following configurations, which are needed by some of the GitH
 To enable building and deploying your documentation site, navigate to navigate
 to `Settings > Pages` on your GitHub repository site and set the `Source` for
 your GitHub Pages deployment to "GitHub Actions".
-
-**Code coverage.**
-On [CodeCov.io](https://about.codecov.io/), log in or set up an account, navigate to `Settings > Global Upload Token`, and select "Not required".
 
 **Conda publication.**
 On [Anaconda.org](https://anaconda.org/), log in or set up an account,navigate to `Settings > Access`, and create an API token.
