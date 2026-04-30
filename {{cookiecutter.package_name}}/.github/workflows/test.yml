@@ -2,7 +2,11 @@ name: test
 
 on: 
   push:
+    branches-ignore:
+      - template
   pull_request:
+    branches-ignore:
+      - template
   workflow_dispatch:
 
 jobs:

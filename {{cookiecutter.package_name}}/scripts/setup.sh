@@ -13,6 +13,7 @@ git init
 git add --all
 if git config --get user.name >/dev/null 2>&1 && git config --get user.email >/dev/null 2>&1; then
   git commit -m "Initial commit"
+  git branch template
 else
   echo "Warning: Git author identity is not configured."
   echo "You can configure it as follows:"

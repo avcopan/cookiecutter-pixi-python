@@ -8,3 +8,4 @@ read -p "  Git username (${DEFAULT_USERNAME} [default] or enter alternative): " 
 USERNAME=${INPUT:-$DEFAULT_USERNAME}
 git remote add origin git@github.com:$USERNAME/{{cookiecutter.package_name}}.git
 git push -u origin main
+git push -u origin template:template
