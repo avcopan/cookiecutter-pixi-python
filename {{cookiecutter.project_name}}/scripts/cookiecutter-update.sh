@@ -15,4 +15,4 @@ commit_hash=$(git rev-parse --short HEAD)
 
 # Update the current branch by cherry-picking the template update commit
 git switch "$original_branch"
-git cherry-pick "$commit_hash"
+git cherry-pick "$commit_hash" -x
