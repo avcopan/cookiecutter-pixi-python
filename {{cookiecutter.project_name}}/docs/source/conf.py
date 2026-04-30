@@ -26,7 +26,7 @@ exclude_patterns = []
 html_theme = "pydata_sphinx_theme"
 html_static_path = []
 html_theme_options = {
-    "github_url": "https://github.com/{{cookiecutter.github_org_name}}/{{cookiecutter.package_name}}",
+    "github_url": "https://github.com/{{cookiecutter.github_org_name}}/{{cookiecutter.project_name}}",
 }
 
 # 4. MyST configuration

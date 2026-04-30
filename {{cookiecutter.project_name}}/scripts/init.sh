@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 # Set up remote repository
-read -p "Press enter to continue if you have already set up a remote repository for {{cookiecutter.package_name}} on GitHub. Otherwise, please set it up before continuing."
+read -p "Press enter to continue if you have already set up a remote repository for {{cookiecutter.project_name}} on GitHub. Otherwise, please set it up before continuing."
 
 DEFAULT_USERNAME=$(git config --global user.name)
 read -p "  Git username (${DEFAULT_USERNAME} [default] or enter alternative): " INPUT
 USERNAME=${INPUT:-$DEFAULT_USERNAME}
-git remote add origin git@github.com:$USERNAME/{{cookiecutter.package_name}}.git
+git remote add origin git@github.com:$USERNAME/{{cookiecutter.project_name}}.git
 git push -u origin main
 git push -u origin template:template

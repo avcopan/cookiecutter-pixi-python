@@ -1,4 +1,4 @@
-"""{{cookiecutter.package_name}} tests."""
+"""{{cookiecutter.project_name}} tests."""
 
 import {{cookiecutter.package_name}}
 

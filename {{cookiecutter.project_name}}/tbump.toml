@@ -1,4 +1,4 @@
-github_url = "https://github.com/{{cookiecutter.github_org_name}}/{{cookiecutter.package_name}}"
+github_url = "https://github.com/{{cookiecutter.github_org_name}}/{{cookiecutter.project_name}}"
 
 [version]
 current = "0.0.0"
