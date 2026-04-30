@@ -1,13 +1,22 @@
 #!/usr/bin/env bash
 
+set -e
+
 original_branch=$(git branch --show-current)
 
-# Update the template branch from cookiecutter
+# Switch to template branch and clear all files
 git switch template
-rm -rf ~/.cookiecutters/cookiecutter-pixi-python
-cookiecutter gh:avcopan/cookiecutter-pixi-python --replay-file .template.json
+git pull origin template
+git rm -rf .
+git clean -fd
+git checkout HEAD -- .template.json
+
+# Update template using cookiecutter
+yes | cookiecutter gh:avcopan/cookiecutter-pixi-python --replay-file .template.json
 rsync -av --remove-source-files {{cookiecutter.project_name}}/ ./
 rm -r {{cookiecutter.project_name}}/
+
+# Commit and push the changes to the template branch
 git add --all
 git commit --no-verify -m "Update template"
 git push origin template
