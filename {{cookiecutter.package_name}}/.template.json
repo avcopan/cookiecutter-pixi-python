@@ -1,0 +1,10 @@
+{
+  "cookiecutter": {
+    "project_name": "{{cookiecutter.project_name}}",
+    "package_name": "{{cookiecutter.package_name}}",
+    "author_name": "{{cookiecutter.author_name}}",
+    "author_email": "{{cookiecutter.author_email}}",
+    "github_org_name": "{{cookiecutter.github_org_name}}",
+    "anaconda_org_name": "{{cookiecutter.anaconda_org_name}}"
+  }
+}
