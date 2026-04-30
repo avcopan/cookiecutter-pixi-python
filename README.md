@@ -220,53 +220,45 @@ See [these instructions](#prepare-remote-github-repository) above.
 
 ### Updating Against Cookiecutter Changes
 
-Here is a work-in-progress strategy for updating against cookiecutter changes...
+The template generated from this cookiecutter is stored in a separate branch
+named `template`, which is created upon initialization.
 
-First, you will want to have a merge tool configured.
-The following configures `vimdiff` as your merge tool.
+This is used to update against changes to this cookiecutter via the following command:
+```sh
+pixi run cookiecutter-update
 ```
-git config merge.tool vimdiff
+This command executes the following sequence:
+
+1. Switch to the `template` branch
+2. Update the `template` branch by re-generating from the current cookiecutter
+3. Switch back to the original branch
+4. Cherry-pick the template update
+
+If the cherry-pick completes without issues, it will automatically commit the change.
+You may want to do a diff to check the reults.
+```sh
+git diff HEAD~1
 ```
 
-Along with the repository, create an branch called `template` containing only
-the bare template without additional changes.
+If the cherry-pick results in merge conflicts, you can resolve them using the mergetool:
 ```sh
-git checkout -b template        # If no changes have been made
+git mergetool
 ```
+If you haven't already, you will need to first configure the merge tool you want
+to use, for example `vimdiff`.
 ```sh
-git checkout --orphan template  # If changes have been made
-git rm -rf .
-git clean -fd
-cookiecutter gh:avcopan/cookiecutter-pixi-python
-# Set configurations to match your package
-rsync -av --remove-source-files <package-name>/ ./
-git add --all
+git config --global merge.tool vimdiff
 ```
-You can then update the template as follows.
+If the changes are significant, you may also want to view them line-by-line as follows.
 ```sh
-git rm -rf .
-git clean -fd
-cookiecutter gh:avcopan/cookiecutter-pixi-python
-# Set configurations to match your package
-rsync -av --remove-source-files <package-name>/ ./
 git restore --staged .
 git add --patch
-git add --all
-git commit --no-verify -m "Update template"
-git push -u origin template
-git log --oneline -1    # Copy commit hash from template branch
 ```
-You can then pull these changes into your main branch as follows.
+You can then complete the cherry-pick as follows.
 ```sh
-git checkout main
-git cherry-pick <template commit hash>
-git mergetool           # Resolve conflicts in your merge tool
-git restore --staged .
-git add --patch
 git add --all
 git cherry-pick --continue
 ```
-
 
 ## License
 
