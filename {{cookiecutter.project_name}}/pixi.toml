@@ -83,3 +83,4 @@ release = "tbump"
 # Setup and initialize this repository (only run once)
 setup = "./scripts/setup.sh"
 init = { cmd = "./scripts/init.sh", depends-on = ["setup"]}
+cookiecutter-update = "./scripts/cookiecutter-update.sh"
