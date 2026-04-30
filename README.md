@@ -93,8 +93,9 @@ This makes it easy to navigate to your documentation site from GitHub.
 
 ### Usage
 
-**Add/remove dependencies.**
-Dependencies can be added or removed as follows.
+#### Manage Run Dependencies
+
+Run dependencies can be added or removed as follows.
 ```sh
 pixi run add <dependencies...>
 pixi run remove <dependencies...>
@@ -107,7 +108,8 @@ These dependencies are then
 [mapped into Conda packages](https://pixi.prefix.dev/latest/build/backends/pixi-build-python/#automatic-pypi-dependency-mapping)
 by Pixi.
 
-**Add/remove dev dependencies.**
+#### Manage Dev Dependencies
+
 Development dependencies can be added or removed from the Pixi `dev` environment as follows.
 ```sh
 pixi add -f dev <development dependencies...>
@@ -118,7 +120,8 @@ You can also add tasks to the development environment as described
 These configurations go in the
 [`pixi.toml` file]({{cookiecutter.package_name}}/pixi.toml).
 
-**Add/remove local dependencies.**
+#### Manage Local Dependencies
+
 To test against live changes to one or more of your other packages that this
 package depends on, you can add local repositories to `.local.txt` file as
 follows.
@@ -141,7 +144,8 @@ pre-commit hooks to pass.
 > not exist.
 > This is enforced by the pre-commit hook below.
 
-**Run pre-commit hooks.**
+#### Run Pre-Commit Hooks
+
 If you have initialized with `pixi run init`, the pre-commit hooks should run with every commit.
 You can also run them directly as follows.
 ```sh
@@ -150,7 +154,8 @@ pixi run local-pre-commit   # run pre-commit hooks with local dependencies
 ```
 These pre-commit hooks are [configured and run](https://lefthook.dev/configuration/run.html) using LeftHook.
 
-**Configure import contracts.**
+#### Configure Import Contracts
+
 Import contracts are handled by Lint-Imports.
 A basic
 [module layering contract](https://import-linter.readthedocs.io/en/stable/contract_types/layers/#__tabbed_1_2)
@@ -158,7 +163,8 @@ is currently configured as a placeholder example.
 This contract can be modified in `pyproject.toml`.
 See [here](https://import-linter.readthedocs.io/en/stable/contract_types/) for other contract types.
 
-**Edit documentation.**
+#### Edit Documentation
+
 The documentation can be built and locally previewed as follows.
 ```sh
 pixi run docs-view
@@ -177,7 +183,8 @@ using the
 [Napoleon](https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html)
 parser.
 
-**Release a new version.**
+#### Release New Versions
+
 The following command shows the current version number.
 ```sh
 pixi run version
@@ -195,7 +202,8 @@ When the tag is pushed, it triggers the
 on GitHub Actions, which builds and publishes Conda and PyPI packages for your
 project and posts the new release on GitHub.
 
-**Publish to PyPI.**
+#### Publish to PyPI
+
 The
 [release workflow]
 is initially configured to publish to Test PyPI for testing purposes.
