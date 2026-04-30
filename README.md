@@ -218,6 +218,56 @@ You will also need change the value of the "UV_PUBLISH_TOKEN" to your PyPI API t
 See [these instructions](#prepare-remote-github-repository) above.
 
 
+### Updating Against Cookiecutter Changes
+
+Here is a work-in-progress strategy for updating against cookiecutter changes...
+
+First, you will want to have a merge tool configured.
+The following configures `vimdiff` as your merge tool.
+```
+git config merge.tool vimdiff
+```
+
+Along with the repository, create an branch called `template` containing only
+the bare template without additional changes.
+```sh
+git checkout -b template        # If no changes have been made
+```
+```sh
+git checkout --orphan template  # If changes have been made
+git rm -rf .
+git clean -fd
+cookiecutter gh:avcopan/cookiecutter-pixi-python
+# Set configurations to match your package
+rsync -av --remove-source-files <package-name>/ ./
+git add --all
+```
+You can then update the template as follows.
+```sh
+git rm -rf .
+git clean -fd
+cookiecutter gh:avcopan/cookiecutter-pixi-python
+# Set configurations to match your package
+rsync -av --remove-source-files <package-name>/ ./
+git restore --staged .
+git add --patch
+git add --all
+git commit --no-verify -m "Update template"
+git push -u origin template
+git log --oneline -1    # Copy commit hash from template branch
+```
+You can then pull these changes into your main branch as follows.
+```sh
+git checkout main
+git cherry-pick <template commit hash>
+git mergetool           # Resolve conflicts in your merge tool
+git restore --staged .
+git add --patch
+git add --all
+git cherry-pick --continue
+```
+
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
