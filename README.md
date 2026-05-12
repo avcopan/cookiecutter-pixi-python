@@ -123,13 +123,13 @@ These configurations go in the
 #### Manage Local Dependencies
 
 To test against live changes to one or more of your other packages that this
-package depends on, you can add local repositories to `.local.txt` file as
-follows.
+package depends on, you can add `# local:true/false` markers to your `pixi.toml`
+file as follows.
 ```toml
-package-name = { path = "/path/to/repository", editable = true }
+package-name = "==0.0.8"  # local:false
+# package-name = { path = "/path/to/repository" }  # local:true
 ```
-If you are already including their published versions as default dependencies,
-you can then toggle the use of the local versions in the `dev` environment as follows.
+You can then use the following to toggle between the published and local versions of these packages.
 ```sh
 pixi run local start    # use local dependencies
 pixi run local stop     # use published dependencies
@@ -137,12 +137,8 @@ pixi run local stop     # use published dependencies
 Once you are satisfied with the changes, you must update the published version
 of the dependency and bump the version in `pixi.toml` in order for the
 pre-commit hooks to pass.
-
-> [!NOTE]
-> You must `pixi run local stop` before committing and pushing changes.
-> Otherwise, your GitHub Actions workflows will fail because the local paths do
-> not exist.
-> This is enforced by the pre-commit hook below.
+The first pre-commit hook below toggles off local dependencies to ensure that you are
+testing against the published versions.
 
 #### Run Pre-Commit Hooks
 

@@ -31,10 +31,6 @@ ipykernel = "*"
 
 [feature.dev.pypi-dependencies]
 keepachangelog = "*"
-# local dependencies placeholder
-
-[feature.dev.pypi-options.dependency-overrides]
-# local dependencies placeholder
 
 [feature.docs.dependencies]
 sphinx = "*"
