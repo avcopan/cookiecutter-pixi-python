@@ -220,5 +220,11 @@ __marimo__/
 .pixi/*
 !.pixi/config.toml
 
+# Local environment stashes
+.pixi_local_true
+.pixi_local_false
+.pixi_local_true.lock
+.pixi_local_false.lock
+
 # pixi build
 *.conda

@@ -6,15 +6,18 @@ TOML_FILE="pixi.toml"
 TRUE_MARK="# local:true"
 FALSE_MARK="# local:false"
 
+PIXI_DIR=".pixi"
+LOCK_FILE="pixi.lock"
+
 fail() {
     echo "Error: $1" >&2
     exit 1
 }
 
-toggle_lines() {
-    local mode="$1" # start | stop
+update_toml() {
+    local state="$1" # true | false
 
-    awk -v true_mark="$TRUE_MARK" -v false_mark="$FALSE_MARK" -v mode="$mode" '
+    awk -v true_mark="$TRUE_MARK" -v false_mark="$FALSE_MARK" -v state="$state" '
         function is_commented(line) {
             return line ~ /^[[:space:]]*#/
         }
@@ -34,7 +37,7 @@ toggle_lines() {
             needs_toggle = has_true_mark || has_false_mark
 
             if (needs_toggle) {
-                toggle_switch = (mode == "start" && has_true_mark) || (mode == "stop" && has_false_mark)
+                toggle_switch = (state == "true" && has_true_mark) || (state == "false" && has_false_mark)
                 if (toggle_switch) {
                     print toggle_on($0)
                 } else {
@@ -47,15 +50,58 @@ toggle_lines() {
         }
     ' "$TOML_FILE" > "$TOML_FILE.tmp"
 
-    mv "$TOML_FILE.tmp" "$TOML_FILE"
+    # Only replace if changed
+    if cmp -s "$TOML_FILE" "$TOML_FILE.tmp"; then
+        rm "$TOML_FILE.tmp"
+        return 1  # no change
+    else
+        mv "$TOML_FILE.tmp" "$TOML_FILE"
+        return 0  # changed
+    fi
+}
+
+stash_state() {
+    local label="$1"  # "true" or "false"
+
+    if [[ -d "$PIXI_DIR" || -f "$LOCK_FILE" ]]; then
+        echo "Stashing current state → $label"
+
+        [[ -d "$PIXI_DIR" ]] && mv "$PIXI_DIR" ".pixi_local_${label}" 2>/dev/null || true
+        [[ -f "$LOCK_FILE" ]] && mv "$LOCK_FILE" ".pixi_local_${label}.lock" 2>/dev/null || true
+    fi
+}
+
+restore_state() {
+    local label="$1"  # "true" or "false"
+
+    if [[ -d ".pixi_local_${label}" || -f ".pixi_local_${label}.lock" ]]; then
+        echo "Restoring cached state ← $label"
+
+        [[ -d ".pixi_local_${label}" ]] && mv ".pixi_local_${label}" "$PIXI_DIR"
+        [[ -f ".pixi_local_${label}.lock" ]] && mv ".pixi_local_${label}.lock" "$LOCK_FILE"
+    else
+        echo "No cached state for $label (will require solve)"
+    fi
 }
 
 case "${1:-}" in
     start)
-        toggle_lines "start"
+        # target state: local:true
+        if update_toml "true"; then
+            stash_state "false"
+            restore_state "true"
+        else
+            echo "Already in local:true state; nothing to do"
+        fi
         ;;
     stop)
-        toggle_lines "stop"
+        # target state: local:false
+        if update_toml "false"; then
+            stash_state "true"
+            restore_state "false"
+        else
+            echo "Already in local:false state; nothing to do"
+        fi
         ;;
     *)
         echo "Usage: $0 {start|stop}"
