@@ -7,7 +7,7 @@ dependencies = []
 
 [build-system]
 build-backend = "uv_build"
-requires = ["uv_build"]
+requires = ["uv_build<0.12"]
 
 # Ruff configurations
 [tool.ruff]

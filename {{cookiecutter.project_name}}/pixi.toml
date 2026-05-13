@@ -17,6 +17,9 @@ backend = { name = "pixi-build-python", version = "*" }
 ignore-pyproject-manifest = false
 ignore-pypi-mapping = false
 
+[package.host-dependencies]
+uv = "*"
+
 [feature.dev.dependencies]
 uv = "*"
 ruff = "*"
