@@ -79,23 +79,41 @@ restore_state() {
 
         [[ -d ".pixi_local_${label}" ]] && mv ".pixi_local_${label}" "$PIXI_DIR"
         [[ -f ".pixi_local_${label}.lock" ]] && mv ".pixi_local_${label}.lock" "$LOCK_FILE"
+        return 0
     else
         echo "No cached state for $label (will require solve)"
+        return 1
+    fi
+}
+
+seed_true_from_false() {
+    # Only allowed warm start direction: false → true
+    if [[ -d ".pixi_local_false" && ! -d "$PIXI_DIR" ]]; then
+        echo "Seeding local:true from local:false (hardlink rsync warm start)"
+
+        mkdir -p "$PIXI_DIR"
+
+        rsync -a --delete --link-dest="$(pwd)/.pixi_local_false" ".pixi_local_false/" "$PIXI_DIR/"
+    fi
+    if [[ -f ".pixi_local_false.lock" && ! -f "$LOCK_FILE" ]]; then
+        cp ".pixi_local_false.lock" "$LOCK_FILE"
     fi
 }
 
 case "${1:-}" in
     start)
-        # target state: local:true
+        # switch to local:true
         if update_toml "true"; then
             stash_state "false"
-            restore_state "true"
+
+            # try restore, otherwise warm start from false
+            restore_state "true" || seed_true_from_false
         else
             echo "Already in local:true state; nothing to do"
         fi
         ;;
     stop)
-        # target state: local:false
+        # switch to local:false (canonical, no seeding needed)
         if update_toml "false"; then
             stash_state "true"
             restore_state "false"
