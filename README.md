@@ -256,6 +256,34 @@ git add --all
 git cherry-pick --continue
 ```
 
+### Using Pixi on an HPC Cluster
+
+Home directories on an HPC cluster typically use a network filesystem, which can
+make Pixi very slow.
+To help mitigate this, configure your `.bashrc` to set the `PIXI_CACHE_DIR`
+environment variable to a faster global filesystem location such as the global
+scratch space.
+```
+export PIXI_CACHE_DIR=/scratch/$USER/pixi-cache
+mkdir -p $PIXI_CACHE_DIR
+```
+Additionally, the following two SLURM scripts are provided to update the cache
+and the `.pixi` directory for a given repository.
+```
+sbatch scripts/slurm-cache.sh  # Update cache
+sbatch scripts/slurm-repos.sh  # Update repository
+```
+If your repository has local dependencies as described above, these can be added
+by updating the `REPOS` variable in the above scripts.
+```
+REPOS=("<dependency repository 1>" "<dependency repository 2>" "<this repository>")
+```
+In the `slurm-repos.sh` script, you will also need to set the array to count
+over the indices of the `REPOS` array, using zero-indexing.
+```
+#SBATCH --array=0-2
+```
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
