@@ -36,6 +36,7 @@ done
 cd "$WORK_DIR/$REPO"
 
 echo "=== Step 1/4 ($REPO): pixi install started ==="
+./scripts/local.sh stop
 time pixi install
 
 echo "=== Step 2/4 ($REPO): pixi install -e dev ==="

@@ -56,7 +56,7 @@ export PIXI_CACHE_DIR="$WORK_CACHE_DIR"
 echo "=== Step 2/5: Sync each repository to lscratch (excluding .git) ==="
 for repo in "${REPOS[@]}"; do
     echo "--- Syncing $repo ---"
-    time rsync -a --exclude='.git/' "$ORIG_DIR/$repo/" "$WORK_DIR/$repo/"
+    time rsync -a --exclude='.git/' --exclude='.pixi*/' "$ORIG_DIR/$repo/" "$WORK_DIR/$repo/"
 done
 
 echo "=== Step 3/5: pixi install ==="
@@ -64,6 +64,7 @@ for repo in "${REPOS[@]}"; do
     echo "--- Installing $repo ---"
     (
         cd "$WORK_DIR/$repo"
+        ./scripts/local.sh stop
         time pixi install -v
     )
 done
