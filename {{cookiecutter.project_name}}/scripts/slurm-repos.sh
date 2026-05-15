@@ -6,7 +6,7 @@
 #SBATCH --time=4:00:00
 #SBATCH --mem=10G
 #SBATCH --array=0-0
-#SBATCH --output=log-%x-%A_%a.out
+#SBATCH --output=../log-%x-%A_%a.out
 
 set -euo pipefail
 
@@ -15,7 +15,7 @@ REPOS=("{{cookiecutter.package_name}}")
 REPO="${REPOS[$SLURM_ARRAY_TASK_ID]}"
 
 # Directories
-WORK_DIR=$SLURM_SUBMIT_DIR
+WORK_DIR=$(dirname "$SLURM_SUBMIT_DIR")
 
 echo "=== Job Info ==="
 echo "TASK_ID        = $SLURM_ARRAY_TASK_ID"
@@ -44,13 +44,13 @@ time pixi install -e dev
 echo "=== Step 3/4 ($REPO): prepare local environment ==="
 time (
     pixi run local start
-    pixi run python -c "import automol; print(automol.__file__)"
-    pixi run -e dev python -c "import automol; print(automol.__file__)"
+    pixi install
+    pixi install -e dev
 )
 
 echo "=== Step 4/4 ($REPO): restore original environment ==="
 time (
     pixi run local stop
-    pixi run python -c "import automol; print(automol.__file__)"
-    pixi run -e dev python -c "import automol; print(automol.__file__)"
+    pixi install
+    pixi install -e dev
 )

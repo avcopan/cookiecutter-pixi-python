@@ -5,7 +5,7 @@
 #SBATCH --ntasks=4
 #SBATCH --time=4:00:00
 #SBATCH --mem=10G
-#SBATCH --output=log-%x-%A.out
+#SBATCH --output=../log-%x-%A.out
 
 set -euo pipefail
 
@@ -24,7 +24,7 @@ if [[ -z "${PIXI_CACHE_DIR:-}" ]]; then
 fi
 
 # Directories
-ORIG_DIR=$SLURM_SUBMIT_DIR
+ORIG_DIR=$(dirname "$SLURM_SUBMIT_DIR")
 WORK_DIR=/lscratch/$USER/pixi-work-$SLURM_JOB_ID
 ORIG_CACHE_DIR=$PIXI_CACHE_DIR
 WORK_CACHE_DIR=/lscratch/$USER/pixi-cache-tmp-$SLURM_JOB_ID
