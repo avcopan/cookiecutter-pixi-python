@@ -134,6 +134,9 @@ You can then use the following to toggle between the published and local version
 pixi run local start    # use local dependencies
 pixi run local stop     # use published dependencies
 ```
+To allow toggling back and forth without needing to repeatedly solve
+dependencies, the lockfile and `.pixi/` folder are stashed as
+`.pixi_local_true.lock` and `.pixi_local_true/` and reused.
 Once you are satisfied with the changes, you must update the published version
 of the dependency and bump the version in `pixi.toml` in order for the
 pre-commit hooks to pass.
@@ -260,28 +263,31 @@ git cherry-pick --continue
 
 Home directories on an HPC cluster typically use a network filesystem, which can
 make Pixi very slow.
-To help mitigate this, configure your `.bashrc` to set the `PIXI_CACHE_DIR`
-environment variable to a faster global filesystem location such as the global
+This can be mitigated as follows.
+
+1. In your your shell configuration file, `.bashrc`, set the `PIXI_CACHE_DIR`
+environment variable to a faster global filesystem location, such as the global
 scratch space.
 ```
 export PIXI_CACHE_DIR=/scratch/$USER/pixi-cache
 mkdir -p $PIXI_CACHE_DIR
 ```
-Additionally, the following two SLURM scripts are provided to update the cache
-and the `.pixi` directory for a given repository.
+
+2. In the project configuration file, `.pixi/config.toml`, use Pixi's
+[detached-environments](https://pixi.prefix.dev/v0.39.0/reference/pixi_configuration/#detached-environments)
+configuration to store your environment files on a faster filesystem.
+```sh
+mkdir -p .pixi
+echo "detached-environments = \"/lscratch/$USER\"" >> .pixi/config.toml
 ```
-sbatch scripts/slurm-cache.sh  # Update cache
-sbatch scripts/slurm-repos.sh  # Update repository
-```
-If your repository has local dependencies as described above, these can be added
-by updating the `REPOS` variable in the above scripts.
-```
-REPOS=("<dependency repository 1>" "<dependency repository 2>" "<this repository>")
-```
-In the `slurm-repos.sh` script, you will also need to set the array to count
-over the indices of the `REPOS` array, using zero-indexing.
-```
-#SBATCH --array=0-2
+
+If you are using local dependencies
+[as described above](#manage-local-dependencies),
+then, assuming you are starting from the `local:false` state, you will also want
+to set this configuration in your `.pixi_local_true` directory.
+```sh
+mkdir -p .pixi_local_true
+echo "detached-environments = \"/lscratch/$USER/local\"" >> .pixi_local_true/config.toml
 ```
 
 ## License
