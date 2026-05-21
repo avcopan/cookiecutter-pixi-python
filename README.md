@@ -265,12 +265,15 @@ Home directories on an HPC cluster typically use a network filesystem, which can
 make Pixi very slow.
 This can be mitigated as follows.
 
-1. In your your shell configuration file, `.bashrc`, set the `PIXI_CACHE_DIR`
-environment variable to a faster global filesystem location, such as the global
-scratch space.
+1. In your your shell configuration file, `.bashrc`, set the UV and Pixi cache
+directory environment variables to a faster global filesystem location, such as
+the global scratch space. Also set the UV link mode to use symlinks to cache.
 ```
 export PIXI_CACHE_DIR=/scratch/$USER/pixi-cache
 mkdir -p $PIXI_CACHE_DIR
+export UV_CACHE_DIR=/scratch/$USER/uv-cache
+mkdir -p $UV_CACHE_DIR
+export UV_LINK_MODE="symlink"
 ```
 
 2. In the project configuration file, `.pixi/config.toml`, use Pixi's
